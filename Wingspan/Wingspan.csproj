@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\PlaywriteCU-Regular.ttf" />
+    <None Remove="Fonts\ubisoftsans-bold.ttf" />
+    <None Remove="Fonts\ubisoftsans-regular.ttf" />
+    <None Remove="Images\RB6_RedCrow_Teaser.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\PlaywriteCU-Regular.ttf" />
+    <Resource Include="Fonts\ubisoftsans-bold.ttf" />
+    <Resource Include="Fonts\ubisoftsans-regular.ttf" />
+    <Resource Include="Images\RB6_RedCrow_Teaser.png" />
+  </ItemGroup>
+
+</Project>
