@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wingspan.ViewModels;
 
 namespace Wingspan.Views
 {
@@ -20,9 +21,16 @@ namespace Wingspan.Views
     /// </summary>
     public partial class MainPageView : UserControl
     {
+        new MainPageViewModel DataContext { get => (MainPageViewModel)((UserControl)this).DataContext; }
+
         public MainPageView()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext.IsUnsupported = !DataContext.IsUnsupported;
         }
     }
 }

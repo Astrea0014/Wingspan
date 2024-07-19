@@ -12,9 +12,73 @@
     </UserControl.DataContext>
 
     <Grid>
-        <Image Source="pack://application:,,,/Images/RB6_RedCrow_Teaser.png"></Image>
+        <Image x:Name="BackgroundImage"
+               Source="pack://application:,,,/Images/RB6_RedCrow_Teaser.png">
+            <Image.Effect>
+                <BlurEffect Radius="0"
+                            KernelType="Gaussian"/>
+            </Image.Effect>
 
-        <Grid>
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsUnsupported}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
+                                                         Duration="0:0:0.5"
+                                                         From="0" To="30"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
+                                                         Duration="0:0:0.5"
+                                                         From="30" To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+
+        <Grid> <!-- Waiting for game -->
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsUnsupported}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.5"
+                                                         From="1" To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.5"
+                                                         From="0" To="1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
@@ -64,6 +128,39 @@
                     </EventTrigger>
                 </TextBlock.Triggers>
             </TextBlock>
+
+            <Button Click="Button_Click"
+                    Grid.Row="4"
+                    Width="10" Height="10"/>
+        </Grid>
+
+        <Grid Width="600" Height="150"> <!-- Unsupported Version -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="1"
+                       Text="Version Unsupported"
+                       Foreground="White"
+                       FontSize="36"
+                       FontFamily="{StaticResource Playwrite}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Text="This version is unsupported. Refer to the 'supported versions' section."
+                       Foreground="White"
+                       FontSize="24"
+                       FontFamily="{StaticResource UbiSans}"
+                       TextWrapping="Wrap"
+                       Margin="20,5"/>
         </Grid>
     </Grid>
 </UserControl>
