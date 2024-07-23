@@ -64,6 +64,20 @@
                 </Setter>
             </Style.Setters>
         </Style>
+
+        <Storyboard x:Key="FadeOutAnimation">
+            <DoubleAnimation Storyboard.TargetName="TransitionBorder"
+                             Storyboard.TargetProperty="Opacity"
+                             Duration="0:0:0.5"
+                             From="0" To="1"/>
+        </Storyboard>
+
+        <Storyboard x:Key="FadeInAnimation">
+            <DoubleAnimation Storyboard.TargetName="TransitionBorder"
+                             Storyboard.TargetProperty="Opacity"
+                             Duration="0:0:0.5"
+                             From="1" To="0"/>
+        </Storyboard>
     </Window.Resources>
 
     <Grid>
@@ -72,10 +86,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ContentPresenter Grid.RowSpan="2"
-                          Content="{Binding CurrentView}"/>
-
-        <Border Background="#CC111111"
+        <Border Background="#111"
                 MouseDown="TopBorder_OnMouseDown">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -97,5 +108,13 @@
                         Style="{StaticResource MinimizeAndExitButtonStyle}"/>
             </Grid>
         </Border>
+
+        <ContentPresenter Grid.Row="1"
+                          Content="{Binding CurrentView}"/>
+
+        <Border Grid.Row="1"
+                x:Name="TransitionBorder"
+                Background="#111"
+                Opacity="0"/>
     </Grid>
 </Window>

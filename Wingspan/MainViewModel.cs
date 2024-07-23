@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Wingspan.ViewModels;
-
-namespace Wingspan
+﻿namespace Wingspan
 {
-	internal static class View
-	{
-        public static readonly MainPageViewModel MainPage = new();
-    }
-
-    internal class MainViewModel : ObservableObject
+    internal class MainViewModel : ObservableObject // Does not implement INoActionConstructible as it is not a ViewModel associated with a DataTemplate, but only used as a DataContext for MainWindow.
     {
 		private object _currentView;
 		public object CurrentView // The ContentControl displays the View associated with the ViewModel given to this property.

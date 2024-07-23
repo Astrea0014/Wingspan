@@ -6,14 +6,16 @@
              xmlns:local="clr-namespace:Wingspan.Views"
              xmlns:ViewModels="clr-namespace:Wingspan.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="430" d:DesignWidth="800">
     <UserControl.DataContext>
         <ViewModels:MainPageViewModel/>
     </UserControl.DataContext>
 
     <Grid>
         <Image x:Name="BackgroundImage"
-               Source="pack://application:,,,/Images/RB6_RedCrow_Teaser.png">
+               Source="pack://application:,,,/Images/RB6_RedCrow_Teaser.png"
+               Stretch="UniformToFill"
+               VerticalAlignment="Center">
             <Image.Effect>
                 <BlurEffect Radius="0"
                             KernelType="Gaussian"/>
@@ -28,7 +30,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
-                                                         Duration="0:0:0.5"
+                                                         Duration="0:0:1"
                                                          From="0" To="30"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -38,7 +40,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetProperty="Effect.Radius"
-                                                         Duration="0:0:0.5"
+                                                         Duration="0:0:1"
                                                          From="30" To="0"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -68,9 +70,12 @@
                             <DataTrigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                         Duration="0:0:0.5"
-                                                         From="0" To="1"/>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.5"
+                                                                  Value="0"/>
+                                            <SplineDoubleKeyFrame KeyTime="0:0:1"
+                                                                  Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
@@ -128,39 +133,88 @@
                     </EventTrigger>
                 </TextBlock.Triggers>
             </TextBlock>
-
-            <Button Click="Button_Click"
-                    Grid.Row="4"
-                    Width="10" Height="10"/>
         </Grid>
 
-        <Grid Width="600" Height="150"> <!-- Unsupported Version -->
+        <Grid Width="Auto" Height="180"
+              HorizontalAlignment="Center"
+              Opacity="0"> <!-- Unsupported Version -->
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsUnsupported}"
+                                     Value="True">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity">
+                                            <SplineDoubleKeyFrame KeyTime="0:0:0.5"
+                                                                  Value="0"/>
+                                            <SplineDoubleKeyFrame KeyTime="0:0:1"
+                                                                  Value="1"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0.5"
+                                                         From="1" To="0"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+            <Grid Grid.Column="0"
+                  Margin="5">
+                <Ellipse Fill="#88111111"/>
 
-            <TextBlock Grid.Column="1"
-                       Text="Version Unsupported"
-                       Foreground="White"
-                       FontSize="36"
-                       FontFamily="{StaticResource Playwrite}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"/>
+                <TextBlock Text="!"
+                           Foreground="White"
+                           FontSize="175"
+                           FontFamily="{StaticResource UbiSans}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"/>
+            </Grid>
 
-            <TextBlock Grid.Row="1"
-                       Grid.Column="1"
-                       Text="This version is unsupported. Refer to the 'supported versions' section."
-                       Foreground="White"
-                       FontSize="24"
-                       FontFamily="{StaticResource UbiSans}"
-                       TextWrapping="Wrap"
-                       Margin="20,5"/>
+            <Grid Grid.Column="1"
+                  Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1"
+                           Text="Version Unsupported"
+                           Foreground="White"
+                           FontSize="36"
+                           FontFamily="{StaticResource UbiSans}"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="2"
+                           FontSize="16"
+                           FontFamily="{StaticResource UbiSans}"
+                           TextWrapping="Wrap"
+                           Margin="5,5,0,10">
+                    <Hyperlink Foreground="Gray"
+                               Click="Hyperlink_OnClick">
+                        See FAQ here for details
+                    </Hyperlink>
+                </TextBlock>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

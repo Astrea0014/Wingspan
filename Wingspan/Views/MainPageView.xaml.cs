@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +29,13 @@ namespace Wingspan.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Hyperlink_OnClick(object sender, RoutedEventArgs e)
         {
-            DataContext.IsUnsupported = !DataContext.IsUnsupported;
+            ProcessStartInfo startInfo = new("https://github.com/Astrea0014/Throwback-FAQ/wiki") // Temporary link.
+            {
+                UseShellExecute = true
+            };
+            Process.Start(startInfo);
         }
     }
 }

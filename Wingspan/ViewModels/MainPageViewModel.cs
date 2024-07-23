@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace Wingspan.ViewModels
+﻿namespace Wingspan.ViewModels
 {
-    internal class MainPageViewModel : ObservableObject
+    internal class MainPageViewModel : ObservableObject, IHollowConstructible<MainPageViewModel>
     {
-        bool _isUnsupported = true;
+        public MainPageViewModel() { }
+        private MainPageViewModel(HollowConstructType _) { } // Part of IHollowConstructible interface implementation.
+
+        bool _isUnsupported = false;
 
         public bool IsUnsupported
         {
@@ -20,5 +16,7 @@ namespace Wingspan.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public static MainPageViewModel HollowConstruct() => new(ViewManager.Hollow);
 	}
 }
